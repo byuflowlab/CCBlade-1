@@ -1349,7 +1349,6 @@ SUBROUTINE COEFFICIENTS_DV(r, chord, rhub, rtip, phi, cl, cld, cd, &
   REAL(dp) :: result1
   REAL(dp), DIMENSION(nbdirs) :: result1d
   INTEGER :: nd
-  INTEGER :: nbdirs
   REAL(dp) :: abs2
   REAL(dp) :: abs1
   REAL(dp) :: abs0
@@ -1374,8 +1373,6 @@ SUBROUTINE COEFFICIENTS_DV(r, chord, rhub, rtip, phi, cl, cld, cd, &
     END DO
     cn = cl*cphi + cd*sphi
     ct = cl*sphi - cd*cphi
-    print *, cnd
-    print *, ctd
   END IF
 ! Prandtl's tip and hub loss factor
   ftip = 1.0_dp
@@ -1498,9 +1495,4 @@ SUBROUTINE COEFFICIENTS_DV(r, chord, rhub, rtip, phi, cl, cld, cd, &
     END DO
     fzero = sphi*(1-k) - cphi/lambda_r*(1-kp)
   END IF
-  print *, fzerod
-  print *, kpd
-  print *, ad
-  print *, kd
-!  print *, apd
 END SUBROUTINE COEFFICIENTS_DV
