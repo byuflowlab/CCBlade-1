@@ -18,6 +18,6 @@ setup(
     # test_suite='test.test_ccblade.py',
     license='Apache License, Version 2.0',
     ext_modules=[Extension('_bem', ['src/bem.f90'], extra_compile_args=['-O2'])],
-    dependency_links=['https://github.com/WISDEM/AirfoilPreppy/tarball/master#egg=airfoilprep.py-0.2'],
+    dependency_links=['https://github.com/BYUFLOWLab/AirfoilPreppy/tarball/master#egg=airfoilprep.py-0.2'],
     zip_safe=False
 )

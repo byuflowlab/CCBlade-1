@@ -96,7 +96,7 @@ class CCAirfoil:
             if airfoilOptions['DirectSpline'] and airfoilOptions['AirfoilParameterization'] == 'CST':
                 airfoilOptions2 = deepcopy(airfoilOptions)
                 airfoilOptions2['SplineOptions']['AnalysisMethod'] = airfoilOptions['AnalysisMethod']
-                af = Airfoil.initFromCST(afp, airfoilOptions2)
+                af = Airfoil.initFromAirfoilShape(afp, airfoilOptions2)
                 if airfoilOptions['SplineOptions']['correction3D']:
                     af = af.correction3D(airfoilOptions['SplineOptions']['r_over_R'], airfoilOptions['SplineOptions']['chord_over_r'], airfoilOptions['SplineOptions']['tsr'])
                 af_extrap = af.extrapolate(airfoilOptions['SplineOptions']['cd_max'])
@@ -158,7 +158,7 @@ class CCAirfoil:
                     fd_step = 1e-6
                     afp_new = deepcopy(self.afp)
                     afp_new[i] += fd_step
-                    af = Airfoil.initFromCST(afp_new, airfoilOptions)
+                    af = Airfoil.initFromAirfoilShape(afp_new, airfoilOptions)
                     if self.airfoilOptions['SplineOptions']['correction3D']:
                         af = af.correction3D(self.airfoilOptions['SplineOptions']['r_over_R'], self.airfoilOptions['SplineOptions']['chord_over_r'], self.airfoilOptions['SplineOptions']['tsr'])
                     af_extrap = af.extrapolate(self.airfoilOptions['SplineOptions']['cd_max'])
@@ -194,7 +194,7 @@ class CCAirfoil:
                         afp_new[i] += fd_step
                         airfoilOptions2 = deepcopy(airfoilOptions)
                         airfoilOptions2['SplineOptions']['AnalysisMethod'] = airfoilOptions['AnalysisMethod']
-                        af = Airfoil.initFromCST(afp_new, airfoilOptions2)
+                        af = Airfoil.initFromAirfoilShape(afp_new, airfoilOptions2)
                         if self.airfoilOptions['SplineOptions']['correction3D']:
                             af = af.correction3D(self.airfoilOptions['SplineOptions']['r_over_R'], self.airfoilOptions['SplineOptions']['chord_over_r'], self.airfoilOptions['SplineOptions']['tsr'])
                         af_extrap = af.extrapolate(self.airfoilOptions['SplineOptions']['cd_max'])
@@ -271,8 +271,8 @@ class CCAirfoil:
             a constructed CCAirfoil object
 
         """
-        af = Airfoil.initFromCST(afp, airfoilOptions)
-        failure = af.failure
+        af = Airfoil.initFromAirfoilShape(afp, airfoilOptions)
+        failure = False
         if airfoilOptions['SplineOptions']['correction3D']:
             af = af.correction3D(airfoilOptions['SplineOptions']['r_over_R'], airfoilOptions['SplineOptions']['chord_over_r'], airfoilOptions['SplineOptions']['tsr'])
         af_extrap = af.extrapolate(airfoilOptions['SplineOptions']['cd_max'])
@@ -2044,7 +2044,7 @@ if __name__ == '__main__':
 
         af_input_init = CCAirfoil.initFromInput
         if airfoilOptions['AirfoilParameterization'] == 'CST':
-            af_freeform_init = CCAirfoil.initFromCST
+            af_freeform_init = CCAirfoil.initFromFreeForm
         elif airfoilOptions['AirfoilParameterization'] == 'NACA':
             af_freeform_init = CCAirfoil.initFromNACA
         else:
